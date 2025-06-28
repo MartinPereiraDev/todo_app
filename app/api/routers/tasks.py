@@ -6,7 +6,7 @@ from app.infrastructure.database import get_session
 from app.models.task import Task
 from app.models.user import User
 from app.models.task_list import TaskList
-from app.domain.schemas.task import TaskResponse
+from app.domain.schemas.task import TaskResponse, TaskUpdate
 from app.domain.schemas.user import UserResponse
 from app.domain.schemas.task_list import TaskListCreate, TaskListResponse
 from typing import Optional, List
@@ -53,12 +53,16 @@ def create_task(
             detail=str(e)
         )
 
-# get all tasks 
+# get all tasks with filters
 @router.get("/", response_model=List[TaskResponse])
 def get_all_tasks(
     session: Session = Depends(get_session),
-    user_id: Optional[int] = None,
-    list_id: Optional[int] = None,
+    user_id:        Optional[int] = None,
+    list_id:        Optional[int] = None,
+    status:         Optional[str] = None,
+    priority:       Optional[str] = None,
+    min_progress:   Optional[int] = None,
+    max_progress:   Optional[int] = None,
     skip: int = 0,
     limit: int = 100
 ):
@@ -69,6 +73,10 @@ def get_all_tasks(
         session: Database session
         user_id: Optional user ID to filter tasks by
         list_id: Optional list ID to filter tasks by
+        status: Optional status to filter tasks by
+        priority: Optional priority to filter tasks by
+        min_progress: Optional minimum progress to filter tasks by
+        max_progress: Optional maximum progress to filter tasks by
         skip: Number of tasks to skip
         limit: Maximum number of tasks to return
     
@@ -78,11 +86,19 @@ def get_all_tasks(
     try:
         statement = select(Task).options(joinedload(Task.user))
         
+        # Apply filters
         if user_id:
             statement = statement.where(Task.user_id == user_id)
-        
         if list_id:
             statement = statement.where(Task.list_id == list_id)
+        if status:
+            statement = statement.where(Task.status == status)
+        if priority:
+            statement = statement.where(Task.priority == priority)
+        if min_progress is not None:
+            statement = statement.where(Task.progress >= min_progress)
+        if max_progress is not None:
+            statement = statement.where(Task.progress <= max_progress)
         
         statement = statement.offset(skip).limit(limit)
         tasks = session.execute(statement).scalars().all()
@@ -152,16 +168,22 @@ def update_task(
     session.refresh(task)
     return task
 
-@router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_task(
+# Update task status and priority
+@router.put("/{task_id}/status", response_model=TaskResponse)
+def update_task_status(
     task_id: int,
+    task_update: TaskUpdate,
     session: Session = Depends(get_session)
 ):
     """
-    Delete a specific task
+    Update the status and/or priority of a task
     
     Args:
-        task_id: ID of the task to delete
+        task_id: ID of the task to update
+        task_update: Data containing status and/or priority to update
+    
+    Returns:
+        TaskResponse: The updated task
     
     Raises:
         HTTPException: If task is not found
@@ -170,7 +192,35 @@ def delete_task(
     if not task:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Task not found"
+            detail="Task not found or not exists"
+        )
+
+    # Update only the fields that were provided
+    if task_update.status is not None:
+        task.status = task_update.status
+    if task_update.priority is not None:
+        task.priority = task_update.priority
+    if task_update.progress is not None:
+        task.progress = task_update.progress
+
+    # Update updated_at timestamp
+    task.updated_at = datetime.utcnow()
+    
+    session.commit()
+    session.refresh(task)
+    return task
+
+# Delete a specific task
+@router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_task(
+    task_id: int,
+    session: Session = Depends(get_session)
+):
+    task = session.get(Task, task_id)
+    if not task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task not found or not exists"
         )
 
     try:

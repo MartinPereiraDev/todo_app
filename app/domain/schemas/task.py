@@ -5,6 +5,15 @@ from app.domain.schemas.user import UserResponse, UserResponseTaskList
 from pydantic.config import ConfigDict
 from app.models.task import TaskType, TaskPriority, TaskStatus
 
+# Schema for updating task status and priority
+class TaskUpdate(BaseModel):
+    status: Optional[TaskStatus] = None
+    priority: Optional[TaskPriority] = None
+    progress: Optional[int] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+# Schema for creating a new task
 class TaskCreate(BaseModel):
     user_id:    int
     list_id:    Optional[int] = None  # ID de la lista de tareas
