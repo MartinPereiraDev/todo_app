@@ -1,0 +1,44 @@
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: todo_root_321
+      MYSQL_DATABASE: todo_db
+      MYSQL_USER: martin_admin
+      MYSQL_PASSWORD: martin_321
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - todo_net  # Referencia a la red
+
+  app:
+   
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo_app
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_USER: martin_admin
+      MYSQL_PASSWORD: martin_321
+      DATABASE_URL: mysql+pymysql://martin_admin:martin_321@db:3306/todo_db
+    depends_on:
+      - db
+    networks:
+      - todo_net  # Referencia a la misma red
+
+# Definición explícita de la red
+networks:
+  todo_net:
+    driver: bridge
+
+# Definición explícita del volumen
+volumes:
+  mysql_data:
