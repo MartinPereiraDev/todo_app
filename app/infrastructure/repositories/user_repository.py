@@ -20,7 +20,7 @@ class UserRepository:
 
     def get_by_email(self, email: str) -> User:
         statement = select(User).where(User.email == email)
-        user = self.session.exec(statement).first()
+        user = self.session.execute(statement).scalars().first()
         if not user:
             raise NotFoundError("User not found")
         return user

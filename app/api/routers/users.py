@@ -3,9 +3,12 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from app.infrastructure.database import get_session
 from app.models.user import User
-from app.domain.schemas.user import UserResponse
+from app.domain.schemas.user import UserResponse, UserCreate
+from app.application.services.user_service import UserService
+from app.infrastructure.repositories.user_repository import UserRepository
 from typing import Optional, List
 from sqlalchemy import select
+from app.domain.exceptions import NotFoundError, BadRequestError 
 
 router = APIRouter()
 
@@ -13,9 +16,35 @@ router = APIRouter()
 
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(
-    user_data: User,
+    user_data: UserCreate,
     session: Session = Depends(get_session)
 ):
+    """
+    Create a new user
+    
+    Args:
+        user_data: User data to create
+        session: Database session
+    
+    Returns:
+        UserResponse: The created user
+    
+    Raises:
+        HTTPException: If user already exists or other error occurs
+    """
+    try:
+        # Create user service
+        user_service = UserService(UserRepository(session))
+        
+        # Create user with hashed password
+        user = user_service.create_user(user_data)
+        return user
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
     try:
         user = User(**user_data.dict())
         session.add(user)

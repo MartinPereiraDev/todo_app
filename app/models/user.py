@@ -19,4 +19,4 @@ class User(SQLModel, table=True):
     # Relaciones
     tasks: List['Task'] = Relationship(back_populates="user")
     lists: List['TaskList'] = Relationship(back_populates="user")
-    lists: List['TaskList'] = Relationship(back_populates="user")
+

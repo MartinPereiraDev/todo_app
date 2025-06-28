@@ -1,16 +1,17 @@
-
+version: '3.8'
 
 services:
   db:
     image: mysql:8.0
     container_name: mysql_db
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: todo_root_321
-      MYSQL_DATABASE: todo_db
-      MYSQL_USER: martin_admin
-      MYSQL_PASSWORD: martin_321
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3308:3306"
+      - "${MYSQL_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
