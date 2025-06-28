@@ -15,6 +15,9 @@
 `docker run -p 8000:8000 todo-app`
 `docker-compose up -d`  # Run in detached mode
 
+## docs http://localhost:8000/docs
+
+
 ## create users 
 `http://localhost:8000/users/`
 {

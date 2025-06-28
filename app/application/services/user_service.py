@@ -13,16 +13,16 @@ class UserService:
         if self.repository.get_user_by_email(user_data.email):
             raise BadRequestError("Email already registered")
 
-        # Hashear contraseña
+        # Hash password
         hashed_password = pwd_context.hash(user_data.password)
         
-        # Crear objeto de base de datos
+        # Create user
         db_user = User(
-            name=user_data.name,
-            surname=user_data.surname,
-            email=user_data.email,
-            password=hashed_password,
-            role=user_data.role
+            name        = user_data.name,
+            surname     = user_data.surname,
+            email       = user_data.email,
+            password    = hashed_password,
+            role        = user_data.role
         )
         
         return self.repository.create(db_user)

@@ -3,6 +3,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 from app.models.user import User
+from app.models.task_list import TaskList
 
 class TaskType(str, Enum):
     WORK     =      "work"
@@ -16,27 +17,23 @@ class TaskPriority(str, Enum):
 
 class TaskStatus(str, Enum):
     START        =      "start"
+    PENDING      =      "pending"
     IN_PROGRESS  =      "in_progress"
-    FINISH       =      "finish"
-
-class TaskCreate(SQLModel):
-    task:              str
-    description:       Optional[str]    = None
-    priority:          TaskPriority     = TaskPriority.MEDIUM
-    status:            TaskStatus       = TaskStatus.START
-    progress:          int              = 0
-    user_id:           int
+    DONE         =      "done"
 
 class Task(SQLModel, table=True):
     id:         Optional[int]        = Field(default=None, primary_key=True)
     user_id:    int                  = Field(foreign_key="user.id")
-    type:       TaskType             = TaskType.WORK
+    list_id:    Optional[int]        = Field(foreign_key="task_list.id")
+    type:       TaskType             = Field(default=TaskType.WORK)
     task:       str                  = Field(max_length=255)
-    priority:   TaskPriority         = TaskPriority.MEDIUM
-    status:     TaskStatus           = TaskStatus.START
+    description: Optional[str]       = Field(default=None, max_length=255)
+    priority:   TaskPriority         = Field(default=TaskPriority.MEDIUM)
+    status:     str                  = Field(default="START")  
     progress:   int                  = Field(default=0, ge=0, le=100)  # 0-100
-    created_at: datetime             = Field(default_factory=datetime.now)
-    updated_at: datetime             = Field(default_factory=datetime.now)
+    created_at: datetime             = Field(default_factory=datetime.utcnow)
+    updated_at: datetime             = Field(default_factory=datetime.utcnow)
     
-    # User relationship
-    user: 'User' = Relationship(back_populates="tasks")
+    # Relaciones
+    user: User = Relationship(back_populates="tasks", sa_relationship_kwargs={"primaryjoin": "User.id == Task.user_id"})
+    task_list: 'TaskList' = Relationship(back_populates="tasks", sa_relationship_kwargs={"primaryjoin": "Task.list_id == TaskList.id"})

@@ -3,7 +3,7 @@
 shift
 cmd="$@"
 
-# Intentar conectar usando el script Python
+# try connect to mysql
 for i in {1..30}; do
     if python scripts/check_mysql.py; then
       echo "MySQL is ready!"

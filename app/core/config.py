@@ -1,9 +1,5 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+class Config:
+    DATABASE_URL = "mysql+pymysql://martin_admin:martin_321@db:3306/todo_db"
+    SECRET_KEY = "your-secret-key-here"  # Esto debería ser un valor seguro en producción
 
-class Settings(BaseSettings):
-    DATABASE_URL: str
-    SECRET_KEY: str
-    
-    model_config = SettingsConfigDict(env_file=".env")
-
-settings = Settings()
+config = Config()

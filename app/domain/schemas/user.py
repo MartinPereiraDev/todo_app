@@ -20,6 +20,10 @@ class UserResponse(BaseModel):
     email:      str
     role:       Role
 
+class UserResponseTaskList(BaseModel):
+    surname:    str
+    email:      str
+
 class UserLogin(BaseModel):
     email:      EmailStr
     password:   str

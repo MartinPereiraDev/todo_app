@@ -1,4 +1,5 @@
 
+
 services:
   db:
     image: mysql:8.0
@@ -13,10 +14,9 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
-      - todo_net  # Referencia a la red
+      - todo_net
 
   app:
-   
     build:
       context: .
       dockerfile: Dockerfile
@@ -25,14 +25,10 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    environment:
-      MYSQL_USER: martin_admin
-      MYSQL_PASSWORD: martin_321
-      DATABASE_URL: mysql+pymysql://martin_admin:martin_321@db:3306/todo_db
     depends_on:
       - db
     networks:
-      - todo_net  # Referencia a la misma red
+      - todo_net
 
 # Definición explícita de la red
 networks:

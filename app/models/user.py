@@ -16,5 +16,7 @@ class User(SQLModel, table=True):
     password:   str                  = Field(max_length=255)
     role:       Role                 = Field(default=Role.USER)
     
-    # Relación con Task
+    # Relaciones
     tasks: List['Task'] = Relationship(back_populates="user")
+    lists: List['TaskList'] = Relationship(back_populates="user")
+    lists: List['TaskList'] = Relationship(back_populates="user")
