@@ -24,7 +24,7 @@ Implementar:
 - Cambio de contraseña
 - Cambio de email
 - Sistema de roles
-  - Funcionalidades de roles para usuarios, esta funcionalidad esta pensada para que exista un usuario con rol de administrador o manager que pueda gestionar a los usuarios y sus roles.
+  - Funcionalidades de roles para usuarios, esta funcionalidad esta pensada para que exista un usuario con rol de administrador o manager que pueda gestionar a los usuarios y sus tareas.
 
 - Gestión de sesiones
   - Sesiones múltiples
