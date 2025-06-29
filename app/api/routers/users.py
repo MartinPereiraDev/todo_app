@@ -45,23 +45,21 @@ def create_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e)
         )
-    try:
-        user = User(**user_data.dict())
-        session.add(user)
-        session.commit()
-        session.refresh(user)
-        return user
-    except Exception as e:
-        session.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
+
 
 @router.get("/", response_model=List[UserResponse])
 def get_all_users(
     session: Session = Depends(get_session)
 ):
+    """
+    Get all users
+    
+    Args:
+        session: Database session
+    
+    Returns:
+        List[UserResponse]: List of all users
+    """
     # get all users
     statement = select(User)
     users = session.execute(statement).scalars().all()
@@ -72,6 +70,19 @@ def get_user(
     user_id: int,
     session: Session = Depends(get_session)
 ):
+    """
+    Get a specific user
+    
+    Args:
+        user_id: ID of the user to retrieve
+        session: Database session
+    
+    Returns:
+        UserResponse: The retrieved user
+    
+    Raises:
+        HTTPException: If user is not found
+    """
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(
@@ -86,6 +97,20 @@ def update_user(
     user_data: User,
     session: Session = Depends(get_session)
 ):
+    """
+    Update a specific user
+    
+    Args:
+        user_id: ID of the user to update
+        user_data: Data to update the user
+        session: Database session
+    
+    Returns:
+        UserResponse: The updated user
+    
+    Raises:
+        HTTPException: If user is not found
+    """
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(
@@ -107,6 +132,16 @@ def delete_user(
     user_id: int,
     session: Session = Depends(get_session)
 ):
+    """
+    Delete a specific user
+    
+    Args:
+        user_id: ID of the user to delete
+        session: Database session
+    
+    Raises:
+        HTTPException: If user is not found
+    """
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(

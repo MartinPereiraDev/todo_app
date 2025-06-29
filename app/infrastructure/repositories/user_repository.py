@@ -37,3 +37,6 @@ class UserRepository:
         user = self.get_by_id(user_id)
         self.session.delete(user)
         self.session.commit()
+
+    
+    

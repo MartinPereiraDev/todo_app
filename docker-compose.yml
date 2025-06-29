@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   db:
@@ -6,10 +6,10 @@ services:
     container_name: mysql_db
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD : ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE      : ${MYSQL_DATABASE}
+      MYSQL_USER          : ${MYSQL_USER}
+      MYSQL_PASSWORD      : ${MYSQL_PASSWORD}
     ports:
       - "${MYSQL_PORT}:3306"
     volumes:
@@ -31,11 +31,11 @@ services:
     networks:
       - todo_net
 
-# Definición explícita de la red
+# networks define the network
 networks:
   todo_net:
     driver: bridge
 
-# Definición explícita del volumen
+# volumes define the volume
 volumes:
   mysql_data:

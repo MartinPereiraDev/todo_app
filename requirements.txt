@@ -7,3 +7,8 @@ cryptography>=41.0.0
 pydantic[email]>=2.0.0
 pydantic-settings>=2.1.0
 passlib[bcrypt]
+sqlalchemy>=2.0.41
+python-dotenv>=1.0.0
+pytest>=8.4.1
+httpx>=0.25.2
+pytest-cov>=4.1.0

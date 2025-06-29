@@ -1,5 +1,5 @@
 from app.infrastructure.repositories.user_repository import UserRepository
-from app.domain.schemas.user import UserCreate, UserResponse
+from app.domain.schemas.user import UserCreate, UserResponse, UserUpdate
 from app.models.user import User
 from passlib.context import CryptContext
 from app.domain.exceptions import NotFoundError, BadRequestError 
@@ -40,3 +40,21 @@ class UserService:
             raise ValueError("Invalid credentials")
         return user
 
+    def update_user(self, user_id: int, update_data: UserUpdate) -> User:
+        """Update an existing user"""
+        # Get existing user
+        existing_user = self.repository.get_by_id(user_id)
+        if not existing_user:
+            raise NotFoundError("User not found")
+        
+        # Convert UserUpdate to dict, excluding unset fields
+        update_dict = update_data.model_dump(exclude_unset=True)
+        
+        # Verify email uniqueness
+        if "email" in update_dict and update_dict["email"] != existing_user.email:
+            if self.repository.get_by_email(update_dict["email"]):
+                raise BadRequestError("Email already registered")
+        
+        # Update user
+        updated_user = self.repository.update(user_id, update_dict)
+        return updated_user

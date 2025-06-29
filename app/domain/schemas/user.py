@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from enum import Enum
+from typing import Optional
 
 class Role(str, Enum):
     USER     = "user"
@@ -7,23 +8,31 @@ class Role(str, Enum):
     MANAGER  = "manager"
 
 class UserCreate(BaseModel):
-    name:       str
-    surname:    str
-    email:      EmailStr
-    password:   str
-    role:       Role = Role.USER
+    name        :   str
+    surname     :   str
+    email       :   EmailStr
+    password    :   str
+    role        :   Role = Role.USER
 
 class UserResponse(BaseModel):
-    id:         int
-    name:       str
-    surname:    str
-    email:      str
-    role:       Role
+    id          :   int
+    name        :   str
+    surname     :   str
+    email       :   str
+    role        :   Role
 
 class UserResponseTaskList(BaseModel):
-    surname:    str
-    email:      str
+    id          :   int
+    name        :   str
+    surname     :   str
+    email       :   str
+
+class UserUpdate(BaseModel):
+    name        :   Optional[str] = None
+    surname     :   Optional[str] = None
+    email       :   Optional[EmailStr] = None
+    role        :   Optional[Role] = None    
 
 class UserLogin(BaseModel):
-    email:      EmailStr
-    password:   str
+    email       :   EmailStr
+    password    :   str

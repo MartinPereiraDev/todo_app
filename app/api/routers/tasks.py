@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
-from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import select
+from sqlalchemy.orm import joinedload
+from sqlalchemy.exc import IntegrityError
+from sqlmodel import Session, select
 from app.infrastructure.database import get_session
 from app.models.task import Task
 from app.models.user import User
@@ -19,8 +20,28 @@ router = APIRouter()
 @router.post("/", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
 def create_task(
     task_data: Task,
-    session: Session = Depends(get_session)
+    session: Session = Depends(get_session),
+    summary="Create a new task",
+    description="""
+    Create a new task in the system.
+    
+    The task requires a user associated and can optionally be associated with a task list.
+    Additional details can be provided such as description, priority, and initial status.
+    """
 ):
+    """
+    Create a new task
+    
+    Args:
+        task_data: Task data to create
+        session: Database session
+    
+    Returns:
+        TaskResponse: The created task
+    
+    Raises:
+        HTTPException: If user not found or task list not found
+    """
     try:
         # check if user exists
         user = session.get(User, task_data.user_id)
@@ -64,7 +85,8 @@ def get_all_tasks(
     min_progress:   Optional[int] = None,
     max_progress:   Optional[int] = None,
     skip: int = 0,
-    limit: int = 100
+    limit: int = 100,
+    summary="Get all tasks"
 ):
     """
     Get all tasks
@@ -216,6 +238,16 @@ def delete_task(
     task_id: int,
     session: Session = Depends(get_session)
 ):
+    """
+    Delete a specific task
+    
+    Args:
+        task_id: ID of the task to delete
+        session: Database session
+    
+    Raises:
+        HTTPException: If task is not found
+    """
     task = session.get(Task, task_id)
     if not task:
         raise HTTPException(

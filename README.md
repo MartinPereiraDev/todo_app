@@ -26,3 +26,33 @@
     "email": "martin@example.com",
     "role": "admin"
 }
+
+## Ejecución de Tests en Windows
+
+1. Crear y activar el entorno virtual:
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+2. Instalar dependencias:
+```bash
+pip install -r requirements.txt
+```
+
+3. Ejecutar los tests:
+```bash
+pytest --cov=app
+```
+
+## Ejecución de la Aplicación
+
+1. Asegurarse de tener Docker Desktop instalado y ejecutándose
+
+2. Iniciar los contenedores:
+```bash
+docker-compose up -d
+```
+
+3. Acceder a la documentación:
+http://localhost:8000/docs

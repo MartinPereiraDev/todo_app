@@ -4,45 +4,47 @@ from sqlalchemy import select
 from app.infrastructure.database import get_session
 from app.models.task_list import TaskList
 from app.models.user import User
-from app.domain.schemas.task_list import TaskListCreate, TaskListResponse
 from sqlalchemy.exc import IntegrityError
 from typing import Optional, List
+from app.domain.schemas.task_list import TaskListCreate, TaskListResponse
 
 router = APIRouter()
 
 # Create a new task list
 @router.post("/", response_model=TaskListResponse, status_code=status.HTTP_201_CREATED)
 def create_task_list(
-    task_list_data: TaskListCreate,
+    list_data: TaskListCreate,
     session: Session = Depends(get_session)
 ):
     """
     Create a new task list
     
     Args:
-        task_list_data: Data to create the task list
+        list_data: Data to create the task list
+        session: Database session
     
     Returns:
         TaskListResponse: The created task list
     
     Raises:
-        HTTPException: If user is not found or not exists
+        HTTPException: If user not found
     """
     try:
         # Check if user exists
-        user = session.get(User, task_list_data.user_id)
+        user = session.get(User, list_data.user_id)
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found or not exists"
+                detail="User not found"
             )
-
+        
         # Create task list
-        task_list = TaskList(**task_list_data.dict())
+        task_list = TaskList(**list_data.dict())
         session.add(task_list)
         session.commit()
         session.refresh(task_list)
         return task_list
+
 
     except IntegrityError as e:
         session.rollback()
