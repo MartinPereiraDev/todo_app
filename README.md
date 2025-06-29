@@ -30,11 +30,21 @@ La aplicación está diseñada siguiendo las mejores prácticas de desarrollo, i
 
    descarga: https://docs.docker.com/desktop/  
 
-   documentacion: https://docs.docker.com/get-started/  
+   documentacion: https://docs.docker.com/get-started/ 
 
-2. Ajustar variables de entorno en el archivo .env.
+2. Crear el entorno virtual:
+```bash
+python -m venv venv
+```
+activar el entorno virtual:
+```bash
+.\venv\Scripts\activate
+``` 
 
-   2a. archivo .env.example para guia de las variables de entorno:
+
+3. Ajustar variables de entorno en el archivo .env.
+
+   3a. archivo .env.example para guia de las variables de entorno:
    ```bash
    MySQL Database Configuration
    Change these values to match your MySQL server settings
@@ -45,7 +55,7 @@ La aplicación está diseñada siguiendo las mejores prácticas de desarrollo, i
    more...
    ```
 
-   2b. Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
+   3b. Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
    ```bash
    MYSQL_ROOT_PASSWORD=your_root_password
    MYSQL_DATABASE=your_database_name
@@ -55,21 +65,21 @@ La aplicación está diseñada siguiendo las mejores prácticas de desarrollo, i
    DB_PORT=your_database_port
    ```
 
-3. Iniciar los contenedores:
+4. Iniciar los contenedores:
 
-   3a. Construir la imagen Docker
+   4a. Construir la imagen Docker
 
 ```bash
 docker-compose build --no-cache
 ```
 
-   3b. Iniciar Docker
+   4b. Iniciar Docker
 
 ```bash
 docker-compose up -d
 ```
 
-   3c. Ver logs
+   4c. Ver logs
 
 ```bash
 docker logs todo_app
