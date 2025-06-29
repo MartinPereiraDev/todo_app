@@ -37,8 +37,8 @@
 construir la imagen docker
 
 ```bash
-docker-compose build --no-cache                                                                   ``` 
-
+docker-compose build --no-cache                                                                  ``` 
+<br>
 iniciar docker
 
 ```bash
