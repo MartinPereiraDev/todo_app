@@ -3,30 +3,32 @@
 ## Ejecución de la Aplicación
 
 1. Asegurarse de tener Docker Desktop instalado y ejecutándose.
-descarga: https://docs.docker.com/desktop/
-documentacion: https://docs.docker.com/get-started/
+
+   descarga: https://docs.docker.com/desktop/
+   documentacion: https://docs.docker.com/get-started/
 
 2. Ajustar variables de entorno en el archivo .env.
-2a. archivo .env.example para guia de  las variables de entorno:
-```bash
-MySQL Database Configuration
-Change these values to match your MySQL server settings
-MYSQL_ROOT_PASSWORD=your_secure_password
-MYSQL_DATABASE=todo_app
-MYSQL_USER=todo_user
-MYSQL_PASSWORD=todo_password
-more...
-```
 
-2b. Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
-```bash
-MYSQL_ROOT_PASSWORD=your_root_password
-MYSQL_DATABASE=your_database_name
-MYSQL_USER=your_username
-MYSQL_PASSWORD=your_password
-DB_HOST=your_database_host
-DB_PORT=your_database_port
-```
+   2a. archivo .env.example para guia de las variables de entorno:
+   ```bash
+   MySQL Database Configuration
+   Change these values to match your MySQL server settings
+   MYSQL_ROOT_PASSWORD=your_secure_password
+   MYSQL_DATABASE=todo_app
+   MYSQL_USER=todo_user
+   MYSQL_PASSWORD=todo_password
+   more...
+   ```
+
+   2b. Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
+   ```bash
+   MYSQL_ROOT_PASSWORD=your_root_password
+   MYSQL_DATABASE=your_database_name
+   MYSQL_USER=your_username
+   MYSQL_PASSWORD=your_password
+   DB_HOST=your_database_host
+   DB_PORT=your_database_port
+   ```
 
 
 3. Iniciar los contenedores:
