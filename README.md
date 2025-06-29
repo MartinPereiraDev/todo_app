@@ -1,58 +1,76 @@
 # Todo APP with FastAPI
 
-## Setup
-1. Create virtual environment: `python -m venv venv`
-2. Activate: `source venv/bin/activate`
-3. Install dependencies: `pip install -r requirements.txt`
-4. Run: `uvicorn app.main:app --reload`
-
-## Testing
-`pytest --cov=app`
-
-## Docker
-`docker-compose up --build`
-`docker build -t todo-app .`
-`docker run -p 8000:8000 todo-app`
-`docker-compose up -d`  # Run in detached mode
-
-## docs http://localhost:8000/docs
-
-
-## create users 
-`http://localhost:8000/users/`
-{
-    "name": "Martin",
-    "surname": "Gonzalez",
-    "email": "martin@example.com",
-    "role": "admin"
-}
-
-## Ejecución de Tests en Windows
-
-1. Crear y activar el entorno virtual:
-```bash
-python -m venv venv
-.\venv\Scripts\activate
-```
-
-2. Instalar dependencias:
-```bash
-pip install -r requirements.txt
-```
-
-3. Ejecutar los tests:
-```bash
-pytest --cov=app
-```
-
 ## Ejecución de la Aplicación
 
 1. Asegurarse de tener Docker Desktop instalado y ejecutándose
 
-2. Iniciar los contenedores:
+2. Ajustar variables de entorno en el archivo .env.
+a) archivo .env.example para guia de  las variables de entorno
+MySQL Database Configuration
+Change these values to match your MySQL server settings
+MYSQL_ROOT_PASSWORD=your_secure_password
+MYSQL_DATABASE=todo_app
+MYSQL_USER=todo_user
+MYSQL_PASSWORD=todo_password
+...
+texto
+...
+
+b) Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
 ```bash
-docker-compose up -d
+MYSQL_ROOT_PASSWORD=your_root_password
+MYSQL_DATABASE=your_database_name
+MYSQL_USER=your_username
+MYSQL_PASSWORD=your_password
+DB_HOST=your_database_host
+DB_PORT=your_database_port
 ```
 
-3. Acceder a la documentación:
+
+3. Iniciar los contenedores:
+construir la imagen docker
+```bash
+docker-compose build --no-cache                                                                   ``` 
+
+iniciar docker
+```bash
+docker-compose up -d
+``` 
+
+ver logs 
+```bash
+docker logs todo_app
+```
+La aplicacion se encuentra corriendo en http://localhost:8000
+
+4. Acceder a la documentación:
 http://localhost:8000/docs
+
+
+## Documentacion de la API
+Documentacion de la API http://localhost:8000/docs
+
+## Testing
+
+1. Crear el entorno virtual python:
+```bash
+python -m venv venv
+```
+2. Activar el entorno virtual:
+```bash
+.\venv\Scripts\activate
+```
+3. Instalar dependencias:
+```bash
+pip install -r requirements.txt
+```
+
+4. Ejecutar los tests:
+```bash
+pytest --cov=app
+pytest tests/unit/test_user_service.py -v
+pytest tests/unit/test_task_service.py -v
+python -m pytest -v -s tests/integration/test_user.py
+python -m pytest -v -s tests/integration/test_task.py
+```
+
