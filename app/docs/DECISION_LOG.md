@@ -20,24 +20,17 @@
 - **Connection Pooling**  : Implementado con SQLAlchemy para conexiones eficientes.
 - **sqlite3**             : para pruebas integrales y aislar la base de datos principal.
  
-### 5. Architecture
--app
-    |---docs
-            |---ARCHITECTURE.md
-            |---DECISION_LOG.md
-            |---PENDING.md   
-           
-### 6. Authentication & Authorization
+### 5. Authentication & Authorization
 - **bcrypt**                : Implementacion de encriptacion de contraseñas
 - **JWT Implementation**    : Implementacion de tokens para la gestion de sesiones
 - **Protected Routes**      : Implementacion de rutas protegidas para endpoints sensibles
 
-### 7. Testing
+### 6. Testing
 - **pytest**              :   Test runner con objetivo de testear la funcionalidad de la aplicacion
 - **test unitarios**      :   Test unitarios para testear la funcionalidad de la aplicacion con mock data 
 - **test integracion**    :   Test integracion para testear la funcionalidad de la aplicacion con datos reales usando sqlite3 para la base de datos
 
-### 8. Error Handling
+### 7. Error Handling
 - **Custom Exceptions**   : Manejo de errores personalizados
 - **HTTP Exception Mapping**: Conversion de errores de dominio a códigos HTTP
 
