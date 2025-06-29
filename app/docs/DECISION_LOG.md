@@ -28,7 +28,7 @@
             |---PENDING.md   
            
 ### 6. Authentication & Authorization
-- **bcrypt**                : Implementacion de encriptacion de contrasenhas
+- **bcrypt**                : Implementacion de encriptacion de contraseñas
 - **JWT Implementation**    : Implementacion de tokens para la gestion de sesiones
 - **Protected Routes**      : Implementacion de rutas protegidas para endpoints sensibles
 
