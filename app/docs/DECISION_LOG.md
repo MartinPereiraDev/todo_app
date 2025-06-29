@@ -21,18 +21,14 @@
 - **sqlite3**         : para pruebas integrales y aislar la base de datos principal.
  
 ### 5. Architecture
-- **Layered Architecture**:
-  - app           :  main
-  - api/routers   :  routers(FastAPI endpoints)
-  - application   :  services
-  - core          :  config
-  - domain        :  schemas (models)
-  - infrastructure:  database
-  - models        :  sqlmodel
-  - scripts       :  scripts
-  - tests         :  tests
-
+-app
+    |---docs
+            |---ARCHITECTURE.md
+            |---DECISION_LOG.md
+            |---PENDING.md   
+           
 ### 6. Authentication & Authorization
+- **bcrypt**               : Implementacion de encriptacion de contrasenhas
 - **JWT Implementation**  : Implementacion de tokens para la gestion de sesiones
 - **Protected Routes**    : Implementacion de rutas protegidas para endpoints sensibles
 
@@ -48,3 +44,6 @@
 # PENDIENTES
 - Implementar autenticacion y autorizacion
 - Implementar 
+
+- **JWT Implementation**  : Implementacion de tokens para la gestion de sesiones
+- **Protected Routes**    : Implementacion de rutas protegidas para endpoints sensibles

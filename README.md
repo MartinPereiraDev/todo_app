@@ -90,6 +90,15 @@ La aplicacion se encuentra corriendo en http://localhost:8000
 ## Documentacion de la API
 Documentacion de la API http://localhost:8000/docs
 
+## Documentación
+
+Para más detalles sobre la arquitectura y decisiones técnicas:
+
+- [ARCHITECTURE.md](app/docs/ARCHITECTURE.md) - Estructura y diseño del proyecto
+- [DECISION_LOG.md](app/docs/DECISION_LOG.md) - Registro de decisiones técnicas
+- [PENDING.md](app/docs/PENDING.md) - Funcionalidades pendientes
+
+
 ## Testing
 
 1. Crear el entorno virtual python:
