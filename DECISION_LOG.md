@@ -1,32 +1,50 @@
 ## Technical Decisions
 
-### 1. Database Choice
-- **MySQL**: Chosen for production readiness and Docker compatibility
-- **SQLModel**: Combines SQLAlchemy ORM with Pydantic validation
-- **Connection Pooling**: Configured for efficient DB connections
+### 1. Python Version
+- **Python 3.12**     : Elegido por su facilidad de uso en entornos de desarrollo
 
-### 2. Architecture
+### 2. FastAPI
+- **FastAPI**         : Elegida para generar APIs RESTful
+- **uvicorn**         : Elegida para el servidor de desarrollo 
+
+### 3. docker compose
+- **docker compose**      : Elegida para la gestion de contenedores y servicios que permiten la creacion de entornos de desarrollo seguros y estables
+- **Multi-stage Build**   : para crear una imagen de produccion mas pequeña
+- **Health Checks**       : script en el docker compose para verificar que la base de datos esta lista para recibir peticiones.
+- **Network**             : para comunicar la base de datos con el contenedor de la aplicacion y/o entre contenedores.
+- **Volume**              : para persistir los datos de la base de datos.
+
+### 4. Database Choice
+- **MySQL**           : Elegida por su estabilidad y gestion de datos eficientes y seguros
+- **SQLModel**        : Combina SQLAlchemy ORM con Pydantic validation
+- **Connection Pooling**: Implementado con SQLAlchemy para conexiones eficientes.
+- **sqlite3**         : para pruebas integrales y aislar la base de datos principal.
+ 
+### 5. Architecture
 - **Layered Architecture**:
-  - Domain: Pure business models
-  - Infrastructure: DB implementations
-  - Application: Business logic
-  - API: FastAPI endpoints
-- **Dependency Injection**: Used for DB sessions
+  - app           :  main
+  - api/routers   :  routers(FastAPI endpoints)
+  - application   :  services
+  - core          :  config
+  - domain        :  schemas (models)
+  - infrastructure:  database
+  - models        :  sqlmodel
+  - scripts       :  scripts
+  - tests         :  tests
 
-### 3. Authentication & Authorization
-- **JWT Implementation**: Using PyJWT for token handling
-- **Protected Routes**: Auth dependencies for sensitive endpoints
+### 6. Authentication & Authorization
+- **JWT Implementation**  : Implementacion de tokens para la gestion de sesiones
+- **Protected Routes**    : Implementacion de rutas protegidas para endpoints sensibles
 
-### 4. Testing
-- **pytest**: Test runner with 85% coverage target
-- **TestClient**: For API integration tests
-- **DB Isolation**: Fresh DB for each test
+### 7. Testing
+- **pytest**              :   Test runner con objetivo de testear la funcionalidad de la aplicacion
+- **test unitarios**      :   Test unitarios para testear la funcionalidad de la aplicacion con mock data 
+- **test integracion**    :   Test integracion para testear la funcionalidad de la aplicacion con datos reales usando sqlite3 para la base de datos
 
-### 5. Docker Optimization
-- **Multi-stage Build**: Smaller production image
-- **Health Checks**: DB readiness checks
-- **Network Isolation**: Dedicated network for containers
+### 8. Error Handling
+- **Custom Exceptions**   : Manejo de errores personalizados
+- **HTTP Exception Mapping**: Conversion de errores de dominio a códigos HTTP
 
-### 6. Error Handling
-- **Custom Exceptions**: Domain-specific errors
-- **HTTP Exception Mapping**: Convert domain errors to HTTP codes
+# PENDIENTES
+- Implementar autenticacion y autorizacion
+- Implementar 

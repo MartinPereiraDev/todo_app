@@ -14,8 +14,15 @@ def get_engine():
         engine = create_engine("sqlite:///:memory:", echo=True)
         return engine
     
-    # Use MySQL for production
-    return create_engine(config.DATABASE_URL, echo=True)
+    # Use MySQL for production with connection pooling
+    return create_engine(
+        config.DATABASE_URL,
+        echo=True,
+        pool_size=5,
+        max_overflow=10,
+        pool_timeout=30,
+        pool_recycle=3600
+    )
 
 def init_db():
     """Initialize database tables"""
