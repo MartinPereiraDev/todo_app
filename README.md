@@ -1,5 +1,29 @@
 # Todo APP with FastAPI
 
+Esta aplicación es una solución completa para la gestión de tareas y listas de tareas, desarrollada como parte de una evaluación técnica. 
+
+La aplicación permite:
+
+- **Gestión de Usuarios**: Sistema de autenticación y autorización basado en JWT, permitiendo el registro y login de usuarios. (aun no implementado)
+
+- **Gestión de Tareas**: CRUD completo (Crear, Leer, Actualizar, Eliminar) de tareas con las siguientes características:
+  - Asignación de tareas a usuarios específicos
+  - Asociación opcional a listas de tareas
+  - Gestión de estados de tarea (start, pending, in_progress, done)
+  - Sistema de prioridades (low, medium, high)
+  - Rastreo de progreso (0-100)
+  - Sistema de tags (personal, work, home)
+- **Gestión de Listas de Tareas**: Creación y gestión de listas de tareas para organizar tareas relacionadas.
+- **Seguridad**: Implementación completa de autenticación mediante tokens JWT para asegurar el acceso a recursos sensibles.(aun no implementado)
+
+La aplicación está diseñada siguiendo las mejores prácticas de desarrollo, incluyendo:
+- Arquitectura limpia y modular
+- Documentación de API completa
+- Sistema de pruebas automatizado
+- Integración continua con Docker
+- Gestión de dependencias y configuración
+
+
 ## Ejecución de la Aplicación
 
 1. Asegurarse de tener Docker Desktop instalado y ejecutándose.

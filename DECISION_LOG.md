@@ -13,7 +13,7 @@
   - API: FastAPI endpoints
 - **Dependency Injection**: Used for DB sessions
 
-### 3. Authentication 
+### 3. Authentication & Authorization
 - **JWT Implementation**: Using PyJWT for token handling
 - **Protected Routes**: Auth dependencies for sensitive endpoints
 
