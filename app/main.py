@@ -16,7 +16,7 @@ app = FastAPI(
 
 # Configure routes with static prefixes
 app.include_router(tasks.router,        prefix="/api/v1/tasks")
-app.include_router(tasks_list.router,   prefix="/api/v1/tasks_list")
+app.include_router(tasks_list.router,   prefix="/api/v1/tasks-list")
 app.include_router(users.router,        prefix="/api/v1/users")
 
 async def lifespan(app: FastAPI):
