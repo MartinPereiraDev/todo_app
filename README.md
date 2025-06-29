@@ -34,18 +34,18 @@
 
 3. Iniciar los contenedores:
 
-construir la imagen docker
+3a. construir la imagen docker
 
 ```bash
 docker-compose build --no-cache                                                                  ``` 
-<br>
-iniciar docker
+
+3b. iniciar docker
 
 ```bash
 docker-compose up -d
 ``` 
 
-ver logs 
+3c. ver logs 
 
 ```bash
 docker logs todo_app
