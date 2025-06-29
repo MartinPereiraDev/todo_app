@@ -4,8 +4,9 @@
 
 1. Asegurarse de tener Docker Desktop instalado y ejecutándose.
 
-   descarga: https://docs.docker.com/desktop/
-   documentacion: https://docs.docker.com/get-started/
+   descarga: https://docs.docker.com/desktop/  
+
+   documentacion: https://docs.docker.com/get-started/  
 
 2. Ajustar variables de entorno en el archivo .env.
 
@@ -32,16 +33,20 @@
 
 
 3. Iniciar los contenedores:
+
 construir la imagen docker
+
 ```bash
 docker-compose build --no-cache                                                                   ``` 
 
 iniciar docker
+
 ```bash
 docker-compose up -d
 ``` 
 
 ver logs 
+
 ```bash
 docker logs todo_app
 ```
