@@ -15,10 +15,10 @@
 - **Volume**              : para persistir los datos de la base de datos.
 
 ### 4. Database Choice
-- **MySQL**           : Elegida por su estabilidad y gestion de datos eficientes y seguros
-- **SQLModel**        : Combina SQLAlchemy ORM con Pydantic validation
-- **Connection Pooling**: Implementado con SQLAlchemy para conexiones eficientes.
-- **sqlite3**         : para pruebas integrales y aislar la base de datos principal.
+- **MySQL**               : Elegida por su estabilidad y gestion de datos eficientes y seguros
+- **SQLModel**            : Combina SQLAlchemy ORM con Pydantic validation
+- **Connection Pooling**  : Implementado con SQLAlchemy para conexiones eficientes.
+- **sqlite3**             : para pruebas integrales y aislar la base de datos principal.
  
 ### 5. Architecture
 -app
@@ -28,9 +28,9 @@
             |---PENDING.md   
            
 ### 6. Authentication & Authorization
-- **bcrypt**               : Implementacion de encriptacion de contrasenhas
-- **JWT Implementation**  : Implementacion de tokens para la gestion de sesiones
-- **Protected Routes**    : Implementacion de rutas protegidas para endpoints sensibles
+- **bcrypt**                : Implementacion de encriptacion de contrasenhas
+- **JWT Implementation**    : Implementacion de tokens para la gestion de sesiones
+- **Protected Routes**      : Implementacion de rutas protegidas para endpoints sensibles
 
 ### 7. Testing
 - **pytest**              :   Test runner con objetivo de testear la funcionalidad de la aplicacion
@@ -41,9 +41,4 @@
 - **Custom Exceptions**   : Manejo de errores personalizados
 - **HTTP Exception Mapping**: Conversion de errores de dominio a códigos HTTP
 
-# PENDIENTES
-- Implementar autenticacion y autorizacion
-- Implementar 
 
-- **JWT Implementation**  : Implementacion de tokens para la gestion de sesiones
-- **Protected Routes**    : Implementacion de rutas protegidas para endpoints sensibles
