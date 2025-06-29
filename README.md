@@ -2,21 +2,23 @@
 
 ## Ejecución de la Aplicación
 
-1. Asegurarse de tener Docker Desktop instalado y ejecutándose
+1. Asegurarse de tener Docker Desktop instalado y ejecutándose.
+descarga: https://docs.docker.com/desktop/
+documentacion: https://docs.docker.com/get-started/
 
 2. Ajustar variables de entorno en el archivo .env.
-a) archivo .env.example para guia de  las variables de entorno
+2a. archivo .env.example para guia de  las variables de entorno:
+```bash
 MySQL Database Configuration
 Change these values to match your MySQL server settings
 MYSQL_ROOT_PASSWORD=your_secure_password
 MYSQL_DATABASE=todo_app
 MYSQL_USER=todo_user
 MYSQL_PASSWORD=todo_password
-...
-texto
-...
+more...
+```
 
-b) Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
+2b. Crear archivo .env con las variable de entorno descriptas en el archivo .env.example
 ```bash
 MYSQL_ROOT_PASSWORD=your_root_password
 MYSQL_DATABASE=your_database_name
@@ -42,9 +44,6 @@ ver logs
 docker logs todo_app
 ```
 La aplicacion se encuentra corriendo en http://localhost:8000
-
-4. Acceder a la documentación:
-http://localhost:8000/docs
 
 
 ## Documentacion de la API
