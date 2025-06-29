@@ -1,4 +1,4 @@
-## Technical Decisions
+## Decisiones Técnicas
 
 ### 1. Python Version
 - **Python 3.12**     : Elegido por su facilidad de uso en entornos de desarrollo
