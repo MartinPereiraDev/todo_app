@@ -31,21 +31,21 @@
    DB_PORT=your_database_port
    ```
 
-
 3. Iniciar los contenedores:
 
-3a. construir la imagen docker
+   3a. Construir la imagen Docker
 
 ```bash
-docker-compose build --no-cache                                                                  ``` 
+docker-compose build --no-cache
+```
 
-3b. iniciar docker
+   3b. Iniciar Docker
 
 ```bash
 docker-compose up -d
-``` 
+```
 
-3c. ver logs 
+   3c. Ver logs
 
 ```bash
 docker logs todo_app
